@@ -19,8 +19,40 @@ public class InputReader
     public InputReader()
     {
         reader = new Scanner(System.in);
+        Charset charset = Charset.forName("US-ASCII");
+        Path path = Paths.get(filename);
+        BufferedReader reader =
+        Files.newBufferedReader(path, charset);
+        String line = reader.readLine();
+        while(line != null) { 
+            
+            line = reader.readLine();
+        }
+        reader.close();
     }
-
+    public int[] readInts(String filename)
+    {
+        int[] data;
+        try{
+            List<Integer> values = new ArrayList<>();
+            Scanner Scanner = new Scanner(Paths.get(filename));
+            while(scanner.hasNextInt()){
+                values.add(scanner.nextInt());
+            }
+            data = new int[values.size()];
+            Iterator<Integer> it = values.iterator();
+            int i = 0;
+            while(it.hasNext()){
+                data[i] = it.next();
+                i++;
+            }
+        }
+        catch(IOException e) {
+            System.out.println("Cannot find file: " + filename);
+            data = new int[0];
+        }
+        return data;
+    }
     /**
      * Read a line of text from standard input (the text terminal),
      * and return it as a set of words.
@@ -30,7 +62,8 @@ public class InputReader
      */
     public HashSet<String> getInput() 
     {
-        System.out.print("> ");                // print prompt
+        System.out.print("> "); // print prompt
+        
         String inputLine = reader.nextLine().trim().toLowerCase();
 
         String[] wordArray = inputLine.split(" ");  // split at spaces
@@ -40,6 +73,7 @@ public class InputReader
         for(String word : wordArray) {
             words.add(word);
         }
+        
         return words;
     }
 }

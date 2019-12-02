@@ -41,12 +41,13 @@ public class SupportSystem
         while(!finished) {
             HashSet<String> input = reader.getInput();
 
-            if(input.contains("bye")) {
+            if(input.contains("bye ")) {
                 finished = true;
             }
             else {
                 String response = responder.generateResponse(input);
-                System.out.println(response);
+                System.out.println(response + " ");
+                System.out.println();
             }
         }
         printGoodbye();
